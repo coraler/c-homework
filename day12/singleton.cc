@@ -17,6 +17,13 @@ public:
         return singletonWork;
     }
 
+    static void destroy()
+    {
+        if(singletonWork)
+        {
+            delete singletonWork;
+        }
+    }
 private:
     static T* singletonWork;
 };
@@ -71,10 +78,14 @@ void test()
     Computer* p2=Singleton<Computer>::getinstance("Xionger","Mac",7777);
     p1->print();
     p2->print();
+    Singleton<Computer>::destroy();
+
     Point *p3=Singleton<Point>::getinstance(1,2);
     Point *p4=Singleton<Point>::getinstance(3,4);
     p3->print();
     p4->print();
+
+    Singleton<Point>::destroy();
 }
 
 int main()
