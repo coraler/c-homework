@@ -10,6 +10,7 @@ class HeapSort//小顶堆
 public:
     HeapSort(T* begin,T* end)//构造函数要求给一对指针
     {
+        _work.clear();
         while(begin!=end)
         {
             _work.push_back(*begin);
@@ -61,8 +62,8 @@ void HeapSort<T,Compare>::sort()
     for(int i=_work.size()/2-1;i>=0;--i)
     {
         heapAdjust(i,_work.size());
-    }//先将数组调整为小顶堆
-    for(int i=_work.size();i>0;--i)
+    }
+    for(int i=_work.size()-1;i>0;--i)
     {
         T temp;
         SWAP(_work[0],_work[i],temp);
@@ -77,9 +78,24 @@ void test()
     work.sort();
     work.display();
 }
-
+template<class T>
+struct Cmp
+{
+    bool operator()(const T& lhs,const T& rhs) const 
+    {
+        return lhs>rhs;
+    }
+};
+void test2()
+{
+    int arr[]={5,8,9,6,7,56,8,2,4,6};
+    HeapSort<int,Cmp<int>> work(arr,arr+10);
+    work.sort();
+    work.display();
+}
 int main()
 {
+    test2();
     test();
     return 0;
 }
